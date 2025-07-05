@@ -16,6 +16,7 @@ const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 const PublicHealthPage = React.lazy(() => import('./pages/PublicHealthPage'));
 const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
 const AppointmentsPage = React.lazy(() => import('./pages/AppointmentsPage'));
+const PatientPage = React.lazy(() => import('./pages/PatientPage'));
 const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 
@@ -69,6 +70,7 @@ function App() {
                   <Route path="/health-topics" element={<PublicHealthPage />} />
                   <Route path="/appointments" element={<AppointmentsPage />} />
                   <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/patients" element={<PatientPage />} />
                   <Route
                     path="*"
                     element={

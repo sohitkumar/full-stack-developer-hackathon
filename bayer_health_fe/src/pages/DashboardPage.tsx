@@ -477,7 +477,7 @@ const DashboardPage: React.FC = () => {
                                         fullWidth
                                         variant="outlined"
                                         startIcon={<Article />}
-                                        onClick={() => navigate('/health')}
+                                        onClick={() => navigate('/health-topics')}
                                         sx={{ justifyContent: 'flex-start' }}
                                     >
                                         Browse Health Topics
