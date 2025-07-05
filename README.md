@@ -36,12 +36,16 @@ Build a **simple, smooth, scalable and working healthcare patient portal** where
 - Choose provider and preferred time
 - Simple booking system
 
-### 7. 🚀 **Deployed Application**
-- Working website on the internet
+### 7. 📅 **Testing & Code Quality**
+- We will use jest, mocha, react-testing-library(frontend) for testing
+- We will use SonarQube
+
+### 8. 🚀 **Deployed Application**
+- Working WebApp on the internet
 - Secure and accessible online
 - Both frontend and backend deployed
 
-### 8. ⚙️ **CI/CD Pipeline**
+### 9. ⚙️ **CI/CD Pipeline**
 - Automatic testing when code changes
 - Automatic deployment to production
 - Basic tests for main features
