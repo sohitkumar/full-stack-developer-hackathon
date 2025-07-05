@@ -8,6 +8,7 @@ import { AuthProvider } from './contexts/AuthContext';
 // Always-loaded components (shown on every page)
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy-loaded page components
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -57,6 +58,7 @@ function App() {
       <CssBaseline />
       <AuthProvider>
         <Router>
+          <ScrollToTop />
           <div className="App">
             <Navbar />
             <main style={{ minHeight: '80vh' }}>

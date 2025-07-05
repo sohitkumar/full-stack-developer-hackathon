@@ -38,9 +38,9 @@ const Navbar: React.FC = () => {
 
     const menuItems = [
         { label: 'Home', path: '/' },
-        { label: 'Dashboard', path: '/dashboard' },
+        ...(user ? [{ label: 'Dashboard', path: '/dashboard' }] : []),
         { label: 'Health Topics', path: '/health-topics' },
-        { label: 'Appointments', path: '/appointments' },
+        ...(user ? [{ label: 'Appointments', path: '/appointments' }] : []),
         { label: 'Services', path: '/services' },
         { label: 'Contact', path: '/contact' },
     ];
