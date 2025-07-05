@@ -142,7 +142,7 @@ server/
 ## Deployment Architecture
 
 ```
-We'll use Docker Container for the deployment.
+We'll use Docker Container for the deployment and deploy on an EC2 instance.
 ```
 
 ## Performance Considerations
