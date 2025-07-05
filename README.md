@@ -182,6 +182,10 @@ AWS EC2 Instance
 
 - Add MUI styling
 
+### Home & Public Page
+- public health page
+- health tips, contact info
+
 ### Dashboards + Profiles
 - Goal: Patient and provider dashboards + profile edit
 
@@ -191,14 +195,12 @@ AWS EC2 Instance
 
 - Provider dashboard: view/search patients
 
-### Appointments + Public Page
-- Goal: Appointment booking + public health page
+### Appointments
+- Goal: Appointment booking
 
 - Request appointments: choose provider, time, reason
 
 - Show requests in dashboard
-
-- Public page: health tips, contact info
 
 ### Deploy + Automate
 - Goal: Make app live with AWS
