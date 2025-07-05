@@ -1,0 +1,196 @@
+/* LoginPage.module.css */
+
+/* Container and Layout */
+.container {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.paper {
+    padding: 2rem;
+    width: 100%;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Typography */
+.title {
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Elements */
+.errorAlert {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.submitButton {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.loadingIcon {
+    margin-right: 0.5rem;
+}
+
+/* Links */
+.linksContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+/* Demo Section */
+.divider {
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.dividerText {
+    color: #666;
+}
+
+.demoContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.demoChipsContainer {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.demoChipPrimary {
+    transition: all 0.3s;
+    border: 1px solid #1565C0;
+    color: #1565C0;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.demoChipPrimary:hover {
+    background-color: #1565C0;
+    color: white;
+}
+
+.demoChipSecondary {
+    transition: all 0.3s;
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.demoChipSecondary:hover {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.demoChipDisabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.demoCaption {
+    color: #666;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+/* API Status */
+.apiStatusContainer {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.apiStatusText {
+    color: #666;
+    text-align: center;
+    display: block;
+    font-size: 0.75rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .paper {
+        padding: 1.5rem;
+    }
+
+    .linksContainer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .demoChipsContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .paper {
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.875rem;
+    }
+
+    .apiStatusContainer {
+        padding: 0.75rem;
+    }
+}

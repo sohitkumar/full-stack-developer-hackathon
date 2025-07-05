@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/RegisterPage.module.css';
 
 interface FormData {
     firstName: string;
@@ -190,46 +191,30 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <Box
-            sx={{
-                minHeight: '80vh',
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: 'grey.50',
-                py: 4,
-            }}
-        >
+        <Box className={styles.pageContainer}>
             <Container component="main" maxWidth="md">
-                <Paper
-                    elevation={3}
-                    sx={{
-                        padding: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography component="h1" variant="h4" sx={{ mb: 2, fontWeight: 'bold' }}>
+                <Paper elevation={3} className={styles.paper}>
+                    <Typography component="h1" variant="h4" className={styles.title}>
                         Create Account
                     </Typography>
-                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+                    <Typography variant="body1" className={styles.subtitle}>
                         Join Bayer Healthcare to access personalized health services
                     </Typography>
 
                     {errors.general && (
-                        <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+                        <Alert severity="error" className={styles.errorAlert}>
                             {errors.general}
                         </Alert>
                     )}
 
                     {successMessage && (
-                        <Alert severity="success" sx={{ width: '100%', mb: 2 }}>
+                        <Alert severity="success" className={styles.successAlert}>
                             {successMessage}
                         </Alert>
                     )}
 
-                    <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-                        <Grid container spacing={2}>
+                    <Box component="form" onSubmit={handleSubmit} className={styles.form}>
+                        <Grid container spacing={2} className={styles.formGrid}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
@@ -309,7 +294,7 @@ const RegisterPage: React.FC = () => {
                                         <MenuItem value="provider">Healthcare Provider</MenuItem>
                                     </Select>
                                     {errors.role && (
-                                        <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.5 }}>
+                                        <Typography variant="caption" className={styles.roleError}>
                                             {errors.role}
                                         </Typography>
                                     )}
@@ -353,12 +338,12 @@ const RegisterPage: React.FC = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, py: 1.5 }}
+                            className={styles.submitButton}
                             disabled={loading}
                         >
                             {loading ? (
                                 <>
-                                    <CircularProgress size={20} sx={{ mr: 1 }} />
+                                    <CircularProgress size={20} className={styles.loadingIcon} />
                                     Creating Account...
                                 </>
                             ) : (
@@ -366,8 +351,8 @@ const RegisterPage: React.FC = () => {
                             )}
                         </Button>
 
-                        <Divider sx={{ my: 2 }}>
-                            <Typography variant="body2" color="text.secondary">
+                        <Divider className={styles.divider}>
+                            <Typography variant="body2" className={styles.dividerText}>
                                 OR
                             </Typography>
                         </Divider>
@@ -377,15 +362,15 @@ const RegisterPage: React.FC = () => {
                             variant="outlined"
                             component={RouterLink}
                             to="/login"
-                            sx={{ py: 1.5 }}
+                            className={styles.signInButton}
                             disabled={loading}
                         >
                             Already have an account? Sign In
                         </Button>
                     </Box>
 
-                    <Box sx={{ mt: 3, textAlign: 'center' }}>
-                        <Typography variant="body2" color="text.secondary">
+                    <Box className={styles.footerContainer}>
+                        <Typography variant="body2" className={styles.footerText}>
                             By creating an account, you agree to our{' '}
                             <Link href="#" variant="body2">
                                 Terms of Service
@@ -398,19 +383,11 @@ const RegisterPage: React.FC = () => {
                     </Box>
 
                     {/* Demo Information */}
-                    <Box
-                        sx={{
-                            mt: 3,
-                            p: 2,
-                            backgroundColor: 'success.light',
-                            borderRadius: 1,
-                            width: '100%',
-                        }}
-                    >
-                        <Typography variant="body2" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    <Box className={styles.demoInfoContainer}>
+                        <Typography variant="body2" className={styles.demoTitle}>
                             Demo Mode:
                         </Typography>
-                        <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                        <Typography variant="body2" className={styles.demoDescription}>
                             Fill out the form and click "Create Account" to simulate registration.
                             You'll be automatically logged in after successful registration.
                         </Typography>

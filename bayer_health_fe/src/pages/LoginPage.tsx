@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/LoginPage.module.css';
 
 interface FormData {
     email: string;
@@ -127,37 +128,23 @@ const LoginPage: React.FC = () => {
 
     return (
         <Container component="main" maxWidth="sm">
-            <Box
-                sx={{
-                    marginTop: 8,
-                    marginBottom: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <Paper elevation={3} sx={{ padding: 4, width: '100%' }}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography component="h1" variant="h4" gutterBottom>
+            <Box className={styles.container}>
+                <Paper elevation={3} className={styles.paper}>
+                    <Box className={styles.formContainer}>
+                        <Typography component="h1" variant="h4" gutterBottom className={styles.title}>
                             Welcome Back
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" textAlign="center" sx={{ mb: 3 }}>
+                        <Typography variant="body2" className={styles.subtitle}>
                             Sign in to access your healthcare dashboard and personalized health information
                         </Typography>
 
                         {errors.general && (
-                            <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+                            <Alert severity="error" className={styles.errorAlert}>
                                 {errors.general}
                             </Alert>
                         )}
 
-                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
+                        <Box component="form" onSubmit={handleSubmit} className={styles.form}>
                             <TextField
                                 margin="normal"
                                 required
@@ -194,12 +181,12 @@ const LoginPage: React.FC = () => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2, py: 1.5 }}
+                                className={styles.submitButton}
                                 disabled={loading}
                             >
                                 {loading ? (
                                     <>
-                                        <CircularProgress size={20} sx={{ mr: 1 }} />
+                                        <CircularProgress size={20} className={styles.loadingIcon} />
                                         Signing In...
                                     </>
                                 ) : (
@@ -207,7 +194,7 @@ const LoginPage: React.FC = () => {
                                 )}
                             </Button>
 
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                            <Box className={styles.linksContainer}>
                                 <Link href="#" variant="body2">
                                     Forgot password?
                                 </Link>
@@ -218,48 +205,36 @@ const LoginPage: React.FC = () => {
                         </Box>
 
                         {/* Demo Account Section */}
-                        <Divider sx={{ width: '100%', my: 3 }}>
-                            <Typography variant="body2" color="text.secondary">
+                        <Divider className={styles.divider}>
+                            <Typography variant="body2" className={styles.dividerText}>
                                 Try Demo Accounts
                             </Typography>
                         </Divider>
 
-                        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-                            <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap' }}>
-                                <Chip
-                                    label="Demo Patient"
-                                    color="primary"
-                                    variant="outlined"
-                                    clickable
-                                    disabled={loading}
-                                    onClick={() => handleDemoLogin('patient@demo.com', 'password123', 'patient')}
-                                    sx={{
-                                        '&:hover': { backgroundColor: 'primary.light', color: 'white' },
-                                        transition: 'all 0.3s'
-                                    }}
-                                />
-                                <Chip
-                                    label="Demo Provider"
-                                    color="secondary"
-                                    variant="outlined"
-                                    clickable
-                                    disabled={loading}
-                                    onClick={() => handleDemoLogin('provider@demo.com', 'password123', 'provider')}
-                                    sx={{
-                                        '&:hover': { backgroundColor: 'secondary.light', color: 'white' },
-                                        transition: 'all 0.3s'
-                                    }}
-                                />
+                        <Box className={styles.demoContainer}>
+                            <Box className={styles.demoChipsContainer}>
+                                <div
+                                    className={`${styles.demoChipPrimary} ${loading ? styles.demoChipDisabled : ''}`}
+                                    onClick={() => !loading && handleDemoLogin('patient@demo.com', 'password123', 'patient')}
+                                >
+                                    Demo Patient
+                                </div>
+                                <div
+                                    className={`${styles.demoChipSecondary} ${loading ? styles.demoChipDisabled : ''}`}
+                                    onClick={() => !loading && handleDemoLogin('provider@demo.com', 'password123', 'provider')}
+                                >
+                                    Demo Provider
+                                </div>
                             </Box>
 
-                            <Typography variant="caption" color="text.secondary" textAlign="center">
+                            <Typography variant="caption" className={styles.demoCaption}>
                                 Use demo accounts to explore the platform features without registration
                             </Typography>
                         </Box>
 
                         {/* API Status Info */}
-                        <Box sx={{ mt: 3, p: 2, backgroundColor: 'grey.50', borderRadius: 1, width: '100%' }}>
-                            <Typography variant="caption" color="text.secondary" textAlign="center" display="block">
+                        <Box className={styles.apiStatusContainer}>
+                            <Typography variant="caption" className={styles.apiStatusText}>
                                 <strong>For Development:</strong> The app will try to connect to the backend API.
                                 If the backend is not running, demo accounts will work as fallback.
                             </Typography>
