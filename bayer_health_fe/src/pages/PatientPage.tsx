@@ -48,6 +48,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import userService from '../services/userService';
+import styles from '../styles/PatientPage.module.css';
 
 interface Patient {
     id: string;
@@ -175,8 +176,8 @@ const PatientPage: React.FC = () => {
     // Show access denied for non-providers
     if (!isProvider) {
         return (
-            <Container maxWidth="lg" sx={{ py: 4 }}>
-                <Alert severity="error" sx={{ mb: 4 }}>
+            <Container maxWidth="lg" className={styles.accessDeniedContainer}>
+                <Alert severity="error" className={styles.accessDeniedAlert}>
                     <Typography variant="h6" gutterBottom>
                         Access Denied
                     </Typography>
@@ -193,44 +194,44 @@ const PatientPage: React.FC = () => {
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+            <Box className={styles.loadingContainer}>
                 <CircularProgress size={60} />
             </Box>
         );
     }
 
     return (
-        <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Container maxWidth="lg" className={styles.container}>
             {/* Header */}
-            <Box sx={{ mb: 4 }}>
-                <Typography variant="h4" component="h1" gutterBottom>
+            <Box className={styles.header}>
+                <Typography variant="h4" component="h1" className={styles.headerTitle}>
                     Patient Management
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" className={styles.headerSubtitle}>
                     Manage and view patient information
                 </Typography>
             </Box>
 
             {error && (
-                <Alert severity="error" sx={{ mb: 4 }} onClose={() => setError(null)}>
+                <Alert severity="error" className={styles.errorAlert} onClose={() => setError(null)}>
                     {error}
                 </Alert>
             )}
 
             {/* Statistics Cards */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={3} className={styles.statsGrid}>
                 <Grid item xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card className={styles.statsCard}>
                         <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Avatar sx={{ bgcolor: 'primary.main', mr: 2 }}>
+                            <Box className={styles.statsCardContent}>
+                                <Avatar className={styles.statsAvatar}>
                                     <Person />
                                 </Avatar>
                                 <Box>
-                                    <Typography color="text.secondary" gutterBottom>
+                                    <Typography className={styles.statsText} gutterBottom>
                                         Total Patients
                                     </Typography>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" className={styles.statsNumber}>
                                         {patients.length}
                                     </Typography>
                                 </Box>
@@ -239,17 +240,17 @@ const PatientPage: React.FC = () => {
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card className={styles.statsCard}>
                         <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Avatar sx={{ bgcolor: 'success.main', mr: 2 }}>
+                            <Box className={styles.statsCardContent}>
+                                <Avatar className={styles.statsAvatarSuccess}>
                                     <CheckCircle />
                                 </Avatar>
                                 <Box>
-                                    <Typography color="text.secondary" gutterBottom>
+                                    <Typography className={styles.statsText} gutterBottom>
                                         Active Patients
                                     </Typography>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" className={styles.statsNumber}>
                                         {patients.filter(p => p.isActive).length}
                                     </Typography>
                                 </Box>
@@ -258,17 +259,17 @@ const PatientPage: React.FC = () => {
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card className={styles.statsCard}>
                         <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Avatar sx={{ bgcolor: 'info.main', mr: 2 }}>
+                            <Box className={styles.statsCardContent}>
+                                <Avatar className={styles.statsAvatarInfo}>
                                     <Badge />
                                 </Avatar>
                                 <Box>
-                                    <Typography color="text.secondary" gutterBottom>
+                                    <Typography className={styles.statsText} gutterBottom>
                                         Verified Patients
                                     </Typography>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" className={styles.statsNumber}>
                                         {patients.filter(p => p.isVerified).length}
                                     </Typography>
                                 </Box>
@@ -277,17 +278,17 @@ const PatientPage: React.FC = () => {
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card className={styles.statsCard}>
                         <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Avatar sx={{ bgcolor: 'warning.main', mr: 2 }}>
+                            <Box className={styles.statsCardContent}>
+                                <Avatar className={styles.statsAvatarWarning}>
                                     <Warning />
                                 </Avatar>
                                 <Box>
-                                    <Typography color="text.secondary" gutterBottom>
+                                    <Typography className={styles.statsText} gutterBottom>
                                         New This Month
                                     </Typography>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" className={styles.statsNumber}>
                                         {patients.filter(p => {
                                             const patientDate = new Date(p.createdAt);
                                             const now = new Date();
@@ -303,13 +304,13 @@ const PatientPage: React.FC = () => {
             </Grid>
 
             {/* Search and Actions */}
-            <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box className={styles.searchActionContainer}>
                 <TextField
                     variant="outlined"
                     placeholder="Search patients..."
                     value={searchTerm}
                     onChange={handleSearchChange}
-                    sx={{ width: '300px' }}
+                    className={styles.searchField}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -328,7 +329,7 @@ const PatientPage: React.FC = () => {
             </Box>
 
             {/* Patients Table */}
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Paper className={styles.tableContainer}>
                 <TableContainer>
                     <Table stickyHeader>
                         <TableHead>
@@ -343,17 +344,17 @@ const PatientPage: React.FC = () => {
                         </TableHead>
                         <TableBody>
                             {paginatedPatients.map((patient) => (
-                                <TableRow key={patient.id} hover>
+                                <TableRow key={patient.id} hover className={styles.tableRow}>
                                     <TableCell>
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <Avatar sx={{ mr: 2, bgcolor: 'primary.main' }}>
+                                        <Box className={styles.patientCell}>
+                                            <Avatar className={styles.patientAvatar}>
                                                 <Person />
                                             </Avatar>
                                             <Box>
-                                                <Typography variant="subtitle2">
+                                                <Typography variant="subtitle2" className={styles.patientName}>
                                                     {patient.firstName} {patient.lastName}
                                                 </Typography>
-                                                <Typography variant="body2" color="text.secondary">
+                                                <Typography variant="body2" className={styles.patientEmail}>
                                                     {patient.email}
                                                 </Typography>
                                             </Box>
@@ -361,20 +362,20 @@ const PatientPage: React.FC = () => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
-                                            <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-                                                <Email fontSize="small" sx={{ mr: 1 }} />
+                                            <Typography variant="body2" className={styles.contactItem}>
+                                                <Email fontSize="small" className={styles.contactIcon} />
                                                 {patient.email}
                                             </Typography>
                                             {patient.phoneNumber && (
-                                                <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <Phone fontSize="small" sx={{ mr: 1 }} />
+                                                <Typography variant="body2" className={`${styles.contactItem} ${styles.contactSecondary}`}>
+                                                    <Phone fontSize="small" className={styles.contactIcon} />
                                                     {patient.phoneNumber}
                                                 </Typography>
                                             )}
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column' }}>
+                                        <Box className={styles.statusContainer}>
                                             <Chip
                                                 label={patient.isActive ? 'Active' : 'Inactive'}
                                                 color={patient.isActive ? 'success' : 'default'}
@@ -390,12 +391,12 @@ const PatientPage: React.FC = () => {
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        <Typography variant="body2">
+                                        <Typography variant="body2" className={styles.dateText}>
                                             {formatDate(patient.createdAt)}
                                         </Typography>
                                     </TableCell>
                                     <TableCell>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography variant="body2" className={styles.dateTextSecondary}>
                                             {patient.lastLogin ? formatDateTime(patient.lastLogin) : 'Never'}
                                         </Typography>
                                     </TableCell>
@@ -438,29 +439,29 @@ const PatientPage: React.FC = () => {
                 </DialogTitle>
                 <DialogContent>
                     {selectedPatient && (
-                        <Box sx={{ pt: 2 }}>
-                            <Grid container spacing={3}>
+                        <Box className={styles.dialogContent}>
+                            <Grid container spacing={3} className={styles.dialogGrid}>
                                 <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom>
+                                    <Typography variant="h6" className={styles.dialogSectionTitle}>
                                         Basic Information
                                     </Typography>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Full Name</Typography>
-                                        <Typography variant="body1">
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Full Name</Typography>
+                                        <Typography variant="body1" className={styles.dialogValue}>
                                             {selectedPatient.firstName} {selectedPatient.lastName}
                                         </Typography>
                                     </Box>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Email</Typography>
-                                        <Typography variant="body1">{selectedPatient.email}</Typography>
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Email</Typography>
+                                        <Typography variant="body1" className={styles.dialogValue}>{selectedPatient.email}</Typography>
                                     </Box>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Phone</Typography>
-                                        <Typography variant="body1">{selectedPatient.phoneNumber || 'Not provided'}</Typography>
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Phone</Typography>
+                                        <Typography variant="body1" className={styles.dialogValue}>{selectedPatient.phoneNumber || 'Not provided'}</Typography>
                                     </Box>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Status</Typography>
-                                        <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Status</Typography>
+                                        <Box className={styles.dialogStatusContainer}>
                                             <Chip
                                                 label={selectedPatient.isActive ? 'Active' : 'Inactive'}
                                                 color={selectedPatient.isActive ? 'success' : 'default'}
@@ -473,40 +474,40 @@ const PatientPage: React.FC = () => {
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom>
+                                    <Typography variant="h6" className={styles.dialogSectionTitle}>
                                         Account Information
                                     </Typography>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Member Since</Typography>
-                                        <Typography variant="body1">{formatDate(selectedPatient.createdAt)}</Typography>
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Member Since</Typography>
+                                        <Typography variant="body1" className={styles.dialogValue}>{formatDate(selectedPatient.createdAt)}</Typography>
                                     </Box>
-                                    <Box sx={{ mb: 2 }}>
-                                        <Typography variant="body2" color="text.secondary">Last Login</Typography>
-                                        <Typography variant="body1">
+                                    <Box className={styles.dialogInfoBox}>
+                                        <Typography variant="body2" className={styles.dialogLabel}>Last Login</Typography>
+                                        <Typography variant="body1" className={styles.dialogValue}>
                                             {selectedPatient.lastLogin ? formatDateTime(selectedPatient.lastLogin) : 'Never'}
                                         </Typography>
                                     </Box>
                                     {selectedPatient.patientInfo && (
                                         <>
-                                            <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+                                            <Typography variant="h6" className={`${styles.dialogSectionTitle} ${styles.medicalSection}`}>
                                                 Medical Information
                                             </Typography>
                                             {selectedPatient.patientInfo.dateOfBirth && (
-                                                <Box sx={{ mb: 2 }}>
-                                                    <Typography variant="body2" color="text.secondary">Date of Birth</Typography>
-                                                    <Typography variant="body1">{formatDate(selectedPatient.patientInfo.dateOfBirth)}</Typography>
+                                                <Box className={styles.dialogInfoBox}>
+                                                    <Typography variant="body2" className={styles.dialogLabel}>Date of Birth</Typography>
+                                                    <Typography variant="body1" className={styles.dialogValue}>{formatDate(selectedPatient.patientInfo.dateOfBirth)}</Typography>
                                                 </Box>
                                             )}
                                             {selectedPatient.patientInfo.gender && (
-                                                <Box sx={{ mb: 2 }}>
-                                                    <Typography variant="body2" color="text.secondary">Gender</Typography>
-                                                    <Typography variant="body1">{selectedPatient.patientInfo.gender}</Typography>
+                                                <Box className={styles.dialogInfoBox}>
+                                                    <Typography variant="body2" className={styles.dialogLabel}>Gender</Typography>
+                                                    <Typography variant="body1" className={styles.dialogValue}>{selectedPatient.patientInfo.gender}</Typography>
                                                 </Box>
                                             )}
                                             {selectedPatient.patientInfo.bloodType && (
-                                                <Box sx={{ mb: 2 }}>
-                                                    <Typography variant="body2" color="text.secondary">Blood Type</Typography>
-                                                    <Typography variant="body1">{selectedPatient.patientInfo.bloodType}</Typography>
+                                                <Box className={styles.dialogInfoBox}>
+                                                    <Typography variant="body2" className={styles.dialogLabel}>Blood Type</Typography>
+                                                    <Typography variant="body1" className={styles.dialogValue}>{selectedPatient.patientInfo.bloodType}</Typography>
                                                 </Box>
                                             )}
                                         </>

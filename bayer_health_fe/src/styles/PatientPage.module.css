@@ -1,0 +1,323 @@
+/* PatientPage.module.css */
+
+/* Container and Layout */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.headerTitle {
+    margin-bottom: 1rem;
+}
+
+.headerSubtitle {
+    color: #666;
+}
+
+/* Loading and Error States */
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.errorAlert {
+    margin-bottom: 2rem;
+}
+
+.accessDeniedContainer {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.accessDeniedAlert {
+    margin-bottom: 2rem;
+}
+
+/* Statistics Cards */
+.statsGrid {
+    margin-bottom: 2rem;
+}
+
+.statsCard {
+    height: 100%;
+}
+
+.statsCardContent {
+    display: flex;
+    align-items: center;
+}
+
+.statsAvatar {
+    background-color: #1565C0;
+    margin-right: 1rem;
+    width: 56px;
+    height: 56px;
+}
+
+.statsAvatarSuccess {
+    background-color: #2e7d32;
+    margin-right: 1rem;
+    width: 56px;
+    height: 56px;
+}
+
+.statsAvatarInfo {
+    background-color: #0288d1;
+    margin-right: 1rem;
+    width: 56px;
+    height: 56px;
+}
+
+.statsAvatarWarning {
+    background-color: #ed6c02;
+    margin-right: 1rem;
+    width: 56px;
+    height: 56px;
+}
+
+.statsText {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.statsNumber {
+    font-size: 2.125rem;
+    font-weight: 400;
+    line-height: 1.235;
+}
+
+/* Search and Actions */
+.searchActionContainer {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchField {
+    width: 300px;
+}
+
+/* Table */
+.tableContainer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.tableRow:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Patient Cell */
+.patientCell {
+    display: flex;
+    align-items: center;
+}
+
+.patientAvatar {
+    margin-right: 1rem;
+    background-color: #1565C0;
+}
+
+.patientName {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.patientEmail {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+/* Contact Cell */
+.contactInfo {
+    margin-bottom: 0.25rem;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.contactIcon {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.contactSecondary {
+    color: #666;
+}
+
+/* Status Cell */
+.statusContainer {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.chipActive {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.chipInactive {
+    background-color: #757575;
+    color: white;
+}
+
+.chipVerified {
+    background-color: #0288d1;
+    color: white;
+}
+
+/* Date cells */
+.dateText {
+    font-size: 0.875rem;
+}
+
+.dateTextSecondary {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Dialog Styles */
+.dialogContent {
+    padding-top: 1rem;
+}
+
+.dialogGrid {
+    gap: 1.5rem;
+}
+
+.dialogSection {
+    margin-bottom: 1rem;
+}
+
+.dialogSectionTitle {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.dialogInfoBox {
+    margin-bottom: 1rem;
+}
+
+.dialogLabel {
+    color: #666;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.dialogValue {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.dialogStatusContainer {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.medicalSection {
+    margin-top: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .searchActionContainer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .searchField {
+        width: 100%;
+    }
+
+    .statsGrid {
+        gap: 1rem;
+    }
+
+    .tableContainer {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .statsCardContent {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .statsAvatar,
+    .statsAvatarSuccess,
+    .statsAvatarInfo,
+    .statsAvatarWarning {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Grid System */
+.gridContainer {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.gridItem1 {
+    grid-column: span 1;
+}
+
+.gridItem2 {
+    grid-column: span 2;
+}
+
+.gridItem3 {
+    grid-column: span 3;
+}
+
+.gridItem4 {
+    grid-column: span 4;
+}
+
+.gridItem6 {
+    grid-column: span 6;
+}
+
+.gridItem12 {
+    grid-column: span 12;
+}
+
+@media (min-width: 600px) {
+    .gridContainer {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+@media (max-width: 599px) {
+    .gridContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .gridItem1,
+    .gridItem2,
+    .gridItem3,
+    .gridItem4,
+    .gridItem6,
+    .gridItem12 {
+        grid-column: span 1;
+    }
+}

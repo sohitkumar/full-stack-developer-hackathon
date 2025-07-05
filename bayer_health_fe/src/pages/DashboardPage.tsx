@@ -181,15 +181,6 @@ const DashboardPage: React.FC = () => {
         });
     };
 
-    const handleProfileInputChange = (field: string) => (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setProfileData(prev => ({
-            ...prev,
-            [field]: event.target.value
-        }));
-    };
-
     const handleSaveProfile = async () => {
         try {
             setProfileLoading(true);
@@ -658,7 +649,7 @@ const DashboardPage: React.FC = () => {
                             fullWidth
                             label="First Name"
                             value={profileData.firstName}
-                            onChange={handleProfileInputChange('firstName')}
+                            onChange={(e) => setProfileData({ ...profileData, firstName: e.target.value })}
                             margin="normal"
                             required
                         />
@@ -666,7 +657,7 @@ const DashboardPage: React.FC = () => {
                             fullWidth
                             label="Last Name"
                             value={profileData.lastName}
-                            onChange={handleProfileInputChange('lastName')}
+                            onChange={(e) => setProfileData({ ...profileData, lastName: e.target.value })}
                             margin="normal"
                             required
                         />
@@ -674,7 +665,7 @@ const DashboardPage: React.FC = () => {
                             fullWidth
                             label="Phone Number"
                             value={profileData.phoneNumber}
-                            onChange={handleProfileInputChange('phoneNumber')}
+                            onChange={(e) => setProfileData({ ...profileData, phoneNumber: e.target.value })}
                             margin="normal"
                             placeholder="+1234567890"
                             helperText="Optional - Include country code"
