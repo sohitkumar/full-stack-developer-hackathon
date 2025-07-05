@@ -53,7 +53,7 @@ Build a **simple, smooth, scalable and working healthcare patient portal** where
 
 ## 🛠️ Simple Tech Stack
 
-**Frontend**: React + Material-UI (MUI) (what users see)  
+**Frontend**: React + Material-UI (MUI) (what users see) + ContextAPI + eslint
 **Backend**: Node.js + Express (server)  
 **Database**: MongoDB (data storage)  
 **Deployment**: Docker containers on AWS EC2 (packaging & hosting)  
