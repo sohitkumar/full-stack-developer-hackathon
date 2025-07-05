@@ -14,8 +14,10 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import PeopleIcon from '@mui/icons-material/People';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import { useAuth } from '../contexts/AuthContext';
 
 const HomePage: React.FC = () => {
+    const { user } = useAuth();
     const features = [
         {
             icon: <HealthAndSafetyIcon sx={{ fontSize: 48, color: 'primary.main' }} />,
@@ -42,6 +44,7 @@ const HomePage: React.FC = () => {
             link: '/login',
         },
     ];
+    console.log(user);
 
     return (
         <Box>
@@ -100,7 +103,7 @@ const HomePage: React.FC = () => {
                             variant="outlined"
                             size="large"
                             component={Link}
-                            to="/login"
+                            to={user?.role === "patient" ? "/dashboard" : "/login"}
                             sx={{
                                 borderColor: 'white',
                                 color: 'white',

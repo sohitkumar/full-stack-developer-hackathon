@@ -18,6 +18,12 @@ import {
     Divider,
     Paper,
     IconButton,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Snackbar,
 } from '@mui/material';
 import {
     Person,
@@ -35,11 +41,14 @@ import {
     MonitorWeight,
     Bloodtype,
     FitnessCenter,
+    Save,
+    Cancel,
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import healthService from '../services/healthService';
 import userService from '../services/userService';
+import authService from '../services/authService';
 
 interface DashboardStats {
     totalTopics?: number;
@@ -67,12 +76,23 @@ interface DashboardStats {
 }
 
 const DashboardPage: React.FC = () => {
-    const { user, logout } = useAuth();
+    const { user, logout, updateUser } = useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [stats, setStats] = useState<DashboardStats>({});
     const [recentTopics, setRecentTopics] = useState<any[]>([]);
+
+    // Profile update state
+    const [profileDialogOpen, setProfileDialogOpen] = useState(false);
+    const [profileLoading, setProfileLoading] = useState(false);
+    const [profileError, setProfileError] = useState<string | null>(null);
+    const [profileSuccess, setProfileSuccess] = useState<string | null>(null);
+    const [profileData, setProfileData] = useState({
+        firstName: '',
+        lastName: '',
+        phoneNumber: ''
+    });
 
     useEffect(() => {
         if (user) {
@@ -137,6 +157,71 @@ const DashboardPage: React.FC = () => {
             case 'provider': return 'primary';
             case 'patient': return 'success';
             default: return 'default';
+        }
+    };
+
+    // Profile update handlers
+    const handleOpenProfileDialog = () => {
+        setProfileData({
+            firstName: user?.firstName || '',
+            lastName: user?.lastName || '',
+            phoneNumber: user?.phoneNumber || ''
+        });
+        setProfileError(null);
+        setProfileDialogOpen(true);
+    };
+
+    const handleCloseProfileDialog = () => {
+        setProfileDialogOpen(false);
+        setProfileError(null);
+        setProfileData({
+            firstName: '',
+            lastName: '',
+            phoneNumber: ''
+        });
+    };
+
+    const handleProfileInputChange = (field: string) => (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setProfileData(prev => ({
+            ...prev,
+            [field]: event.target.value
+        }));
+    };
+
+    const handleSaveProfile = async () => {
+        try {
+            setProfileLoading(true);
+            setProfileError(null);
+
+            // Validate required fields
+            if (!profileData.firstName.trim() || !profileData.lastName.trim()) {
+                setProfileError('First name and last name are required');
+                return;
+            }
+
+            // Call the auth service to update profile
+            await authService.updateProfile(profileData);
+
+            // Update user context
+            if (updateUser && user) {
+                const updatedUser = {
+                    ...user,
+                    firstName: profileData.firstName,
+                    lastName: profileData.lastName,
+                    phoneNumber: profileData.phoneNumber,
+                    fullName: `${profileData.firstName} ${profileData.lastName}`
+                };
+                updateUser(updatedUser);
+            }
+
+            setProfileSuccess('Profile updated successfully!');
+            handleCloseProfileDialog();
+        } catch (err: any) {
+            setProfileError(err.response?.data?.message || 'Failed to update profile');
+        } finally {
+            setProfileLoading(false);
         }
     };
 
@@ -506,10 +591,27 @@ const DashboardPage: React.FC = () => {
                 {/* User Profile Info */}
                 <Grid item xs={12}>
                     <Paper sx={{ p: 3 }}>
-                        <Typography variant="h6" gutterBottom>
-                            Profile Information
-                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                            <Typography variant="h6">
+                                Profile Information
+                            </Typography>
+                            <IconButton
+                                onClick={handleOpenProfileDialog}
+                                color="primary"
+                                size="small"
+                            >
+                                <Edit />
+                            </IconButton>
+                        </Box>
                         <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <Typography variant="body2" color="text.secondary">First Name</Typography>
+                                <Typography variant="body1">{user.firstName}</Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Typography variant="body2" color="text.secondary">Last Name</Typography>
+                                <Typography variant="body1">{user.lastName}</Typography>
+                            </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="body2" color="text.secondary">Email</Typography>
                                 <Typography variant="body1">{user.email}</Typography>
@@ -539,6 +641,71 @@ const DashboardPage: React.FC = () => {
                     </Paper>
                 </Grid>
             </Grid>
+
+            {/* Profile Update Dialog */}
+            <Dialog open={profileDialogOpen} onClose={handleCloseProfileDialog} maxWidth="sm" fullWidth>
+                <DialogTitle>
+                    Edit Profile
+                </DialogTitle>
+                <DialogContent>
+                    <Box sx={{ pt: 2 }}>
+                        {profileError && (
+                            <Alert severity="error" sx={{ mb: 2 }}>
+                                {profileError}
+                            </Alert>
+                        )}
+                        <TextField
+                            fullWidth
+                            label="First Name"
+                            value={profileData.firstName}
+                            onChange={handleProfileInputChange('firstName')}
+                            margin="normal"
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            label="Last Name"
+                            value={profileData.lastName}
+                            onChange={handleProfileInputChange('lastName')}
+                            margin="normal"
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            label="Phone Number"
+                            value={profileData.phoneNumber}
+                            onChange={handleProfileInputChange('phoneNumber')}
+                            margin="normal"
+                            placeholder="+1234567890"
+                            helperText="Optional - Include country code"
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseProfileDialog} startIcon={<Cancel />}>
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={handleSaveProfile}
+                        variant="contained"
+                        disabled={profileLoading}
+                        startIcon={profileLoading ? <CircularProgress size={16} /> : <Save />}
+                    >
+                        {profileLoading ? 'Saving...' : 'Save Changes'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Success/Error Snackbar */}
+            <Snackbar
+                open={!!profileSuccess}
+                autoHideDuration={6000}
+                onClose={() => setProfileSuccess(null)}
+            >
+                <Alert onClose={() => setProfileSuccess(null)} severity="success" sx={{ width: '100%' }}>
+                    {profileSuccess}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 };
