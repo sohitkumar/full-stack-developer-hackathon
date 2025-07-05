@@ -16,6 +16,7 @@ import {
     ExpandLess,
 } from '@mui/icons-material';
 import healthService from '../services/healthService';
+import styles from '../styles/PublicHealthPage.module.css';
 
 interface HealthTopic {
     _id: string;
@@ -70,55 +71,43 @@ const PublicHealthPage: React.FC = () => {
     };
 
     return (
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-                <Typography variant="h3" component="h1" gutterBottom color="primary">
+        <Container maxWidth="lg" className={styles.container}>
+            <Box className={styles.header}>
+                <Typography variant="h3" component="h1" gutterBottom className={styles.headerTitle}>
                     Health Topics
                 </Typography>
-                <Typography variant="h6" color="text.secondary">
+                <Typography variant="h6" className={styles.headerSubtitle}>
                     Explore our comprehensive health information resources
                 </Typography>
             </Box>
 
             {loading && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                <Box className={styles.loadingContainer}>
                     <CircularProgress size={50} />
                 </Box>
             )}
 
             {error && (
-                <Alert severity="error" sx={{ mb: 2 }}>
+                <Alert severity="error" className={styles.errorAlert}>
                     {error}
                 </Alert>
             )}
 
             {!loading && !error && (
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className={styles.topicsGrid}>
                     {healthTopics?.map((topic) => (
                         <Grid item xs={12} md={6} key={topic._id}>
-                            <Card
-                                sx={{
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    boxShadow: 3,
-                                    '&:hover': {
-                                        boxShadow: 6,
-                                        transform: 'translateY(-2px)',
-                                        transition: 'all 0.3s ease-in-out'
-                                    }
-                                }}
-                            >
-                                <CardContent sx={{ flex: 1 }}>
-                                    <Typography variant="h5" component="h2" gutterBottom color="primary">
+                            <Card className={styles.topicCard}>
+                                <CardContent className={styles.cardContent}>
+                                    <Typography variant="h5" component="h2" gutterBottom className={styles.cardTitle}>
                                         {topic.title}
                                     </Typography>
 
-                                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                                    <Typography variant="body2" className={styles.publishDate}>
                                         Published: {formatDate(topic.createdAt)}
                                     </Typography>
 
-                                    <Typography variant="body1" paragraph>
+                                    <Typography variant="body1" paragraph className={styles.description}>
                                         {expandedCards[topic._id]
                                             ? topic.description
                                             : `${topic?.description?.substring(0, 150)}...`}
@@ -127,7 +116,7 @@ const PublicHealthPage: React.FC = () => {
                                     <Button
                                         onClick={() => handleExpandClick(topic._id)}
                                         endIcon={expandedCards[topic._id] ? <ExpandLess /> : <ExpandMore />}
-                                        sx={{ mt: 1 }}
+                                        className={styles.readMoreButton}
                                     >
                                         {expandedCards[topic._id] ? 'Read Less' : 'Read More'}
                                     </Button>
@@ -140,8 +129,8 @@ const PublicHealthPage: React.FC = () => {
             )}
 
             {!loading && !error && healthTopics.length === 0 && (
-                <Box sx={{ textAlign: 'center', py: 8 }}>
-                    <Typography variant="h6" color="text.secondary">
+                <Box className={styles.emptyState}>
+                    <Typography variant="h6" className={styles.emptyStateText}>
                         No health topics available at the moment.
                     </Typography>
                 </Box>

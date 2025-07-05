@@ -1,0 +1,116 @@
+/* PublicHealthPage.module.css */
+
+/* Container and Layout */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.headerTitle {
+    color: #1565C0;
+    margin-bottom: 1rem;
+}
+
+.headerSubtitle {
+    color: #666;
+}
+
+/* Loading and Error States */
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.errorAlert {
+    margin-bottom: 1rem;
+}
+
+/* Health Topics Grid */
+.topicsGrid {
+    margin-top: 0;
+}
+
+.topicCard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease-in-out;
+}
+
+.topicCard:hover {
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.cardContent {
+    flex: 1;
+}
+
+.cardTitle {
+    color: #1565C0;
+    margin-bottom: 1rem;
+}
+
+.publishDate {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.description {
+    margin-bottom: 1rem;
+}
+
+.readMoreButton {
+    margin-top: 0.5rem;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.emptyStateText {
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .header {
+        margin-bottom: 1.5rem;
+    }
+
+    .topicsGrid {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .headerTitle {
+        font-size: 2rem;
+    }
+
+    .emptyState {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}

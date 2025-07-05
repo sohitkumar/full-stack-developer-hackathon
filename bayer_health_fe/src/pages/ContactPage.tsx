@@ -8,6 +8,7 @@ import {
     Grid,
     Paper,
 } from '@mui/material';
+import styles from '../styles/ContactPage.module.css';
 
 const ContactPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -28,14 +29,14 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <Container maxWidth="sm" sx={{ mt: 6 }}>
-            <Paper elevation={3} sx={{ p: 4 }}>
-                <Typography variant="h4" gutterBottom color="primary" textAlign="center">
+        <Container maxWidth="sm" className={styles.container}>
+            <Paper elevation={3} className={styles.paper}>
+                <Typography variant="h4" gutterBottom className={styles.title}>
                     Contact Us
                 </Typography>
 
-                <Box component="form" onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
+                <Box component="form" onSubmit={handleSubmit} className={styles.form}>
+                    <Grid container spacing={2} className={styles.formGrid}>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
@@ -82,8 +83,8 @@ const ContactPage: React.FC = () => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} textAlign="center">
-                            <Button variant="contained" type="submit" color="primary">
+                        <Grid item xs={12} className={styles.submitButtonContainer}>
+                            <Button variant="contained" type="submit" color="primary" className={styles.submitButton}>
                                 Send Message
                             </Button>
                         </Grid>
