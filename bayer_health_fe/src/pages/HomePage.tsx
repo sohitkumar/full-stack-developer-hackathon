@@ -99,24 +99,26 @@ const HomePage: React.FC = () => {
                         >
                             Explore Health Topics
                         </Button>
-                        <Button
-                            variant="outlined"
-                            size="large"
-                            component={Link}
-                            to={user?.role === "patient" ? "/dashboard" : "/login"}
-                            sx={{
-                                borderColor: 'white',
-                                color: 'white',
-                                '&:hover': {
+                        {!user &&
+                            <Button
+                                variant="outlined"
+                                size="large"
+                                component={Link}
+                                to={"/login"}
+                                sx={{
                                     borderColor: 'white',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                                },
-                                px: 4,
-                                py: 1.5,
-                            }}
-                        >
-                            Patient Portal
-                        </Button>
+                                    color: 'white',
+                                    '&:hover': {
+                                        borderColor: 'white',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                    },
+                                    px: 4,
+                                    py: 1.5,
+                                }}
+                            >
+                                Patient Portal
+                            </Button>
+                        }
                     </Box>
                 </Container>
             </Box>
